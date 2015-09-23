@@ -70,12 +70,12 @@ function getCorrelation(xArray, yArray) {
 d3.csv('data/pisa.csv', function(data) {
 
   var xAxis = 'Reading Score', yAxis = 'Math Score';
-  var xAxisOptions = ["Math Score", "Reading Score", "Science Score", "Play Chess", "Quiet Place to Study"];
+  var xAxisOptions = ["Math Score", "Reading Score", "Science Score", "Play Chess", "Internet"];
   var yAxisOptions = ["Math Score", "Reading Score", "Science Score"];
   var descriptions = {
 	"Math Score" : "Math Score",
     "Reading Score" : "Reading Score",
-    "Energy consumption" : "Other",
+    "Internet" : "Has internet at home (%)",
     "Science Score" : "Science Score",
     "Work income" : "Other",
     "Play Chess": "Play chess (%)",
