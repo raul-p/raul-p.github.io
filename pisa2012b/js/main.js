@@ -98,7 +98,7 @@ d3.csv('data/pisa.csv', function(data) {
 
   svg.append('g')
     .classed('chart', true)
-    .attr('transform', 'translate(380, 0)');
+    .attr('transform', 'translate(380, -20)');
 
   // Build menus
   d3.select('#x-axis-menu')
