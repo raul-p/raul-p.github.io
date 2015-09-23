@@ -6,6 +6,8 @@ function parseData(d) {
     _.each(keys, function(k) {
       if( k == 'Country' )
         o[k] = d[k];
+	  else if( k == 'Area' )
+        o[k] = d[k];
       else
         o[k] = parseFloat(d[k]);
     });
@@ -39,7 +41,7 @@ function getCorrelation(xArray, yArray) {
   function sumSquares(m, v) {return m + v * v;}
   function filterNaN(m, v, i) {isNaN(v) ? null : m.push(i); return m;}
 
-  // clean the data (because we know that some values are missing)
+  // clean the data (in case some values are missing)
   var xNaN = _.reduce(xArray, filterNaN , []);
   var yNaN = _.reduce(yArray, filterNaN , []);
   var include = _.intersection(xNaN, yNaN);
@@ -65,19 +67,20 @@ function getCorrelation(xArray, yArray) {
   return {r: r, m: m, b: b};
 }
 
-d3.csv('data/summary.csv', function(data) {
+d3.csv('data/pisa.csv', function(data) {
 
-  var xAxis = 'GDP', yAxis = 'Well-being';
-  var xAxisOptions = ["GDP", "Equality", "Food consumption", "Alcohol consumption", "Energy consumption", "Family", "Working hours", "Work income", "Health spending", "Cinema spending"]
-  // var yAxisOptions = ["Well-being"];
+  var xAxis = 'Reading Score', yAxis = 'Math Score';
+  var xAxisOptions = ["Math Score", "Reading Score", "Science Score", "Play Chess", "Quiet Place to Study"];
+  var yAxisOptions = ["Math Score", "Reading Score", "Science Score"];
   var descriptions = {
-    "GDP" : "Reading Score",
+	"Math Score" : "Math Score",
+    "Reading Score" : "Reading Score",
     "Energy consumption" : "Other",
-    "Equality" : "Science Score",
+    "Science Score" : "Science Score",
     "Work income" : "Other",
-    "Food consumption": "Play chess",
+    "Play Chess": "Play chess (%)",
     "Family" : "Fertility (children per women)",
-    "Alcohol consumption" : "Has a quite place to study",
+    "Quiet Place to Study" : "Has a quiet place to study (%)",
     "Working hours" : "Average working hours per week per person",
     "Cinema spending" : "Cinema spending (% of GDP)",
     "Health spending" : "Government health spending (% of government spend)"
@@ -113,28 +116,37 @@ d3.csv('data/summary.csv', function(data) {
       updateChart();
       updateMenus();
     });
+	
+	
 
-  // d3.select('#y-axis-menu')
-  //   .selectAll('li')
-  //   .data(yAxisOptions)
-  //   .enter()
-  //   .append('li')
-  //   .text(function(d) {return d;})
-  //   .classed('selected', function(d) {
-  //     return d === yAxis;
-  //   })
-  //   .on('click', function(d) {
-  //     yAxis = d;
-  //     updateChart();
-  //     updateMenus();
-  //   });
+
+   d3.select('#y-axis-menu')
+     .selectAll('li')
+     .data(yAxisOptions)
+     .enter()
+     .append('li')
+     .text(function(d) {return d;})
+     .classed('selected', function(d) {
+       return d === yAxis;
+     })
+     .on('click', function(d) {
+       yAxis = d;
+       updateChart();
+       updateMenus();
+     });
 
   // Country name
   d3.select('svg g.chart')
     .append('text')
     .attr({'id': 'countryLabel', 'x': 0, 'y': 170})
-    .style({'font-size': '40px', 'fill': '#ddd'});
+    .style({'font-size': '40px', 'fill': '#bbb'});
 
+  // Area name
+  d3.select('svg g.chart')
+    .append('text')
+    .attr({'id': 'areaLabel', 'x': 0, 'y': 220})
+    .style({'font-size': '40px', 'fill': '#ddd'});
+	
   // Best fit line (to appear behind points)
   d3.select('svg g.chart')
     .append('line')
@@ -173,13 +185,24 @@ d3.csv('data/summary.csv', function(data) {
         .text(d.Country)
         .transition()
         .style('opacity', 1);
+	  d3.select('svg g.chart #areaLabel')
+        .text(d.Area)
+        .transition()
+        .style('opacity', 1);	
     })
     .on('mouseout', function(d) {
       d3.select('svg g.chart #countryLabel')
         .transition()
-        .duration(1500)
+        .duration(1000)
         .style('opacity', 0);
-    });
+
+      d3.select('svg g.chart #areaLabel')
+        .transition()
+        .duration(1200)
+        .style('opacity', 0);
+		    })
+   ;
+	
 
   updateChart(true);
   updateMenus();
@@ -216,8 +239,15 @@ d3.csv('data/summary.csv', function(data) {
       })
       .attr('r', function(d) {
         return isNaN(d[xAxis]) || isNaN(d[yAxis]) ? 0 : 12;
+//      return isNaN(d[xAxis]) || isNaN(d[yAxis]) ? 0 : 12;
+//      return isNaN(d[xAxis]) || isNaN(d[yAxis]) ? d3.select(this).attr('Energy consumption') : 30 - yScale(d[yAxis])/25;
       });
 
+
+
+
+	
+	
     // Also update the axes
     d3.select('#xAxis')
       .transition()
@@ -230,7 +260,9 @@ d3.csv('data/summary.csv', function(data) {
     // Update axis labels
     d3.select('#xLabel')
       .text(descriptions[xAxis]);
-
+    d3.select('#yLabel')
+      .text(descriptions[yAxis]);
+	  
     // Update correlation
     var xArray = _.map(data, function(d) {return d[xAxis];});
     var yArray = _.map(data, function(d) {return d[yAxis];});

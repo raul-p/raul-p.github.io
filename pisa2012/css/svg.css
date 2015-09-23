@@ -5,12 +5,12 @@ path {
 
 line {
 	stroke: #555;
-	stroke-width: 1px;
+	stroke-width: 2px;
 }
 
 line#bestfit {
-	stroke: #06C;
-	stroke-width: 5px;
+	stroke: #666;
+	stroke-width: 2 px;
 }
 
 #xAxis path, #yAxis path, #xAxis line, #yAxis line {

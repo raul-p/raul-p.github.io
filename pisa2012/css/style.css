@@ -6,7 +6,7 @@ body {
 }
 
 #wrapper {
-  width: 1200px;
+  width: 1250px;
   margin: 0 auto;
   position: relative;
 }
@@ -14,7 +14,7 @@ body {
 #chart {
   position: absolute;
   top: 30px;
-  left: 250px;
+  left: 200px;
   width: 900px;
   /*margin: 25px auto;*/
 }
@@ -43,9 +43,19 @@ body {
 #menu {
   position: absolute;
   top: 65px;
-  left: 30px;
+  left: 20px;
   width: 300px;
 }
+
+#countries {
+  position: absolute;
+  top: 10px;
+  left: 1100px;
+  width: 100px;
+}
+
+
+
 
 li, h1, h2 {
   font-weight: 100;
@@ -70,7 +80,8 @@ li {
 }
 
 li:hover {
-  color: #000;
+  color: #06C;
+  font-weight: bold;
 }
 
 li.preview {
@@ -81,5 +92,9 @@ li.selected {
   font-weight: bold;
 }
 
-.twitter-share-button[style], .twitter-follow-button[style] { vertical-align: text-bottom !important; }
-.twitter-share-button {width: 76px !important;}
+
+#countries li {
+  font-size: 9px;
+  padding-bottom: 0px;
+}
+
