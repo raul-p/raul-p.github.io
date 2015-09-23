@@ -69,21 +69,20 @@ function getCorrelation(xArray, yArray) {
 
 d3.csv('data/pisa.csv', function(data) {
 
-  var xAxis = 'Reading Score', yAxis = 'Math Score';
-  var xAxisOptions = ["Math Score", "Reading Score", "Science Score", "Play Chess", "Internet"];
-  var yAxisOptions = ["Math Score", "Reading Score", "Science Score"];
+  var xAxis = 'Reading Score', yAxis = 'Maths Score';
+  var xAxisOptions = ["Homework Hours", "Quiet Place to Study", "Computer at Home", "Internet at Home", "Play Chess", "Books", "Car", "Computer Programming", "Problems"];
+  var yAxisOptions = ["Maths Score", "Reading Score", "Science Score"];
   var descriptions = {
-	"Math Score" : "Math Score",
+	"Maths Score" : "Maths Score",
     "Reading Score" : "Reading Score",
-    "Internet" : "Has internet at home (%)",
-    "Science Score" : "Science Score",
-    "Work income" : "Other",
+    "Internet at Home" : "Has internet at home (%)",
     "Play Chess": "Play chess (%)",
-    "Family" : "Fertility (children per women)",
     "Quiet Place to Study" : "Has a quiet place to study (%)",
-    "Working hours" : "Average working hours per week per person",
-    "Cinema spending" : "Cinema spending (% of GDP)",
-    "Health spending" : "Government health spending (% of government spend)"
+	"Computer at Home": "Has a computer at home that can use to study (%)",
+	"Books" : "Has more than 100 boooks at home (%)",
+	"Car" : "Family has a car (%)",
+	"Computer Programming" : "Spends time programming computers (%)", 
+	"Problems" : "Family demands or other problems (%)"
   };
 
   var keys = _.keys(data[0]);
@@ -99,7 +98,7 @@ d3.csv('data/pisa.csv', function(data) {
 
   svg.append('g')
     .classed('chart', true)
-    .attr('transform', 'translate(40, 0)');
+    .attr('transform', 'translate(69, 0)');
 
   // Build menus
   d3.select('#x-axis-menu')
