@@ -93,13 +93,13 @@ d3.csv('data/pisa.csv', function(data) {
   // SVG AND D3 STUFF
   var svg = d3.select("#chart")
     .append("svg")
-    .attr("width", 1300)
-    .attr("height", 730);
+    .attr("width", 1000)
+    .attr("height", 640);
   var xScale, yScale;
 
   svg.append('g')
     .classed('chart', true)
-    .attr('transform', 'translate(40, 0)');
+    .attr('transform', 'translate(80, -60)');
 
   // Build menus
   d3.select('#x-axis-menu')
@@ -116,6 +116,9 @@ d3.csv('data/pisa.csv', function(data) {
       updateChart();
       updateMenus();
     });
+	
+	
+
 
    d3.select('#y-axis-menu')
      .selectAll('li')
@@ -131,70 +134,23 @@ d3.csv('data/pisa.csv', function(data) {
        updateChart();
        updateMenus();
      });
-	 
-  // Countries list
-
-   d3.select('#countries-list')
-     .selectAll('li')
-     .data(data)
-     .enter()
-     .append('li')
-     .text(function(d) {return d.Country;})
-     .on('mouseover', function(d) {
-      d3.select('svg g.chart #countryLabel')
-        .text(d.Country)
-        .transition()
-        .style('opacity', 1);
-	  d3.select('svg g.chart #areaLabel')
-        .text(d.Area)
-        .transition()
-        .style('opacity', 1);	
-		
-	  d3.select("#"+d.Country.replace(/ /g,''))
-		.transition()
-		.attr("stroke", "#333")
-        .attr("stroke-width", 3);	
-				
-		
-		
-    })	
-	.on('mouseout', function(d) {
-      d3.select('svg g.chart #countryLabel')
-        .transition()
-        .duration(1000)
-        .style('opacity', 0);
-
-      d3.select('svg g.chart #areaLabel')
-        .transition()
-        .duration(1200)
-        .style('opacity', 0);
-		
-  	  d3.select("#"+d.Country.replace(/ /g,''))
-	    .transition()
-        .attr("stroke-width", 0);	
-				    })
-
-	;	 
-	 
 
   // Country name
   d3.select('svg g.chart')
     .append('text')
-    .attr({'id': 'countryLabel', 'x': 400, 'y': 130, 'text-anchor': 'middle'})
-    .style({'font-size': '30px', 'fill': '#999'});
+    .attr({'id': 'countryLabel', 'x': 0, 'y': 170})
+    .style({'font-size': '40px', 'fill': '#bbb'});
 
   // Area name
   d3.select('svg g.chart')
     .append('text')
-    .attr({'id': 'areaLabel', 'x': 400, 'y': 158, 'text-anchor': 'middle'})
-    .style({'font-size': '24px', 'fill': '#ddd'});
+    .attr({'id': 'areaLabel', 'x': 0, 'y': 220})
+    .style({'font-size': '40px', 'fill': '#ddd'});
 	
   // Best fit line (to appear behind points)
   d3.select('svg g.chart')
     .append('line')
-    .attr('id', 'bestfit')
-	.style("stroke-dasharray", ("5, 5"))  
-	;
+    .attr('id', 'bestfit');
 
   // Axis labels
   d3.select('svg g.chart')
@@ -208,72 +164,21 @@ d3.csv('data/pisa.csv', function(data) {
     .attr({'id': 'yLabel', 'text-anchor': 'middle'})
     .text('Maths Score');
 
-
-
-
-	// Legend 1
-
-	var linear = d3.scale.category10()
-	  .domain(["OCEANIA", "EUROPE", "AMERICA", "AF & ME", "ASIA"])
-	
-	var svg = d3.select("svg");
-	
-	svg.append("g")
-	  .attr("class", "legendLinear")
-	  .attr("transform", "translate(910,500)");
-	
-	var legendLinear = d3.legend.color()
-	  .shapeWidth(55)
-	  .orient('horizontal')
-	  .scale(linear);
-	
-	svg.select(".legendLinear")
-	  .call(legendLinear);
-  
-  // Legend 2
-  
-	var linearSize = d3.scale.linear().domain([0.5,  300]).range([1.6, 39]);
-	
-	var svg = d3.select("svg");
-	
-	svg.append("g")
-	  .attr("class", "legendSize")
-	  .attr("transform", "translate(930, 600)")
-	  .attr("fill", "#aaa");
-	
-	var legendSize = d3.legend.size()
-	  .scale(linearSize)
-	  .shape('circle')
-	  .shapePadding(7)
-	  .labelOffset(20)
-	  .orient('horizontal')
-	  .labels(["0.5M", "75M", "150M", "225M", "300M"]);
-	
-	svg.select(".legendSize")
-	  .call(legendSize);
-         
-		 
-  
-  
-  
-  
-  // Render circles
+  // Render points
   updateScales();
-  var pointColour = d3.scale.category10();
+  var pointColour = d3.scale.category20c();
   d3.select('svg g.chart')
     .selectAll('circle')
     .data(data)
     .enter()
     .append('circle')
-	.attr("id", function (d) { return d.Country.replace(/ /g,''); })
     .attr('cx', function(d) {
       return isNaN(d[xAxis]) ? d3.select(this).attr('cx') : xScale(d[xAxis]);
     })
     .attr('cy', function(d) {
       return isNaN(d[yAxis]) ? d3.select(this).attr('cy') : yScale(d[yAxis]);
     })
-    .attr('fill', function(d, i) {return pointColour(d.aColor);})
-	.style("fill-opacity", 0.8)
+    .attr('fill', function(d, i) {return pointColour(i);})
     .style('cursor', 'pointer')
     .on('mouseover', function(d) {
       d3.select('svg g.chart #countryLabel')
@@ -284,16 +189,7 @@ d3.csv('data/pisa.csv', function(data) {
         .text(d.Area)
         .transition()
         .style('opacity', 1);	
-	  d3.select(this)
-		.transition()
-		.attr("stroke", "#333")
-        .attr("stroke-width", 2);
-	
-		
-		
-		
     })
-	
     .on('mouseout', function(d) {
       d3.select('svg g.chart #countryLabel')
         .transition()
@@ -304,10 +200,6 @@ d3.csv('data/pisa.csv', function(data) {
         .transition()
         .duration(1200)
         .style('opacity', 0);
-		
-	  d3.select(this)
-		.transition()
-        .attr("stroke-width", 0)
 		    })
    ;
 	
@@ -346,10 +238,9 @@ d3.csv('data/pisa.csv', function(data) {
         return isNaN(d[yAxis]) ? d3.select(this).attr('cy') : yScale(d[yAxis]);
       })
       .attr('r', function(d) {
-//        return isNaN(d[xAxis]) || isNaN(d[yAxis]) ? 0 : 12;
+        return isNaN(d[xAxis]) || isNaN(d[yAxis]) ? 0 : 12;
 //      return isNaN(d[xAxis]) || isNaN(d[yAxis]) ? 0 : 12;
-//     return isNaN(d[xAxis]) || isNaN(d[yAxis]) ? d3.select(this).attr('Math Score') : 30 - yScale(d[yAxis])/25;
-		return 4*Math.sqrt(d.Population/3.14);
+//      return isNaN(d[xAxis]) || isNaN(d[yAxis]) ? d3.select(this).attr('Energy consumption') : 30 - yScale(d[yAxis])/25;
       });
 
 

@@ -99,7 +99,7 @@ d3.csv('data/pisa.csv', function(data) {
 
   svg.append('g')
     .classed('chart', true)
-    .attr('transform', 'translate(40, 0)');
+    .attr('transform', 'translate(380, 0)');
 
   // Build menus
   d3.select('#x-axis-menu')
@@ -220,7 +220,7 @@ d3.csv('data/pisa.csv', function(data) {
 	
 	svg.append("g")
 	  .attr("class", "legendLinear")
-	  .attr("transform", "translate(910,500)");
+	  .attr("transform", "translate(0,500)");
 	
 	var legendLinear = d3.legend.color()
 	  .shapeWidth(55)
@@ -238,7 +238,7 @@ d3.csv('data/pisa.csv', function(data) {
 	
 	svg.append("g")
 	  .attr("class", "legendSize")
-	  .attr("transform", "translate(930, 600)")
+	  .attr("transform", "translate(10, 600)")
 	  .attr("fill", "#aaa");
 	
 	var legendSize = d3.legend.size()
