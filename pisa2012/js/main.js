@@ -413,7 +413,7 @@ d3.select("#tooltip").classed("hidden", true);
 
     // Fade in
 	
-	 if( xAxis == 'Lon' )
+	 if( xAxis == 'Longitude' )
         var op = 0;
 	  else
 	    var op = 1;
