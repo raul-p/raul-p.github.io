@@ -33,7 +33,7 @@ body {
   position: absolute;
   top: 55px;
   left: 210px;
-  width: 760px;
+  width: 740px;
   font-size: 12px;
 }
 
@@ -46,14 +46,6 @@ body {
 }
 
 
-#countries {
-  position: absolute;
-  top: 40px;
-  left: 1100px;
-  width: 100px;
-  display:none;
-
-}
 
 
 #countries-dropdown {
