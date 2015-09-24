@@ -226,6 +226,7 @@ d3.csv('data/pisa.csv', function(data) {
   d3.select("#"+d.Order.replace(/ /g,''))
 	.transition()
 	.attr("stroke", "#333")
+	.style("stroke-opacity", 1)	  
     .attr("stroke-width", 3);	
 		
 		
@@ -273,7 +274,7 @@ var yPosition = parseFloat(d3.select("#"+d.Order.replace(/ /g,'')).attr("cy")) -
 
   d3.select('svg g.chart')
     .append('text')
-    .attr('transform', 'translate(-60, 390)rotate(-90)')
+    .attr('transform', 'translate(-50, 390)rotate(-90)')
     .attr({'id': 'yLabel', 'text-anchor': 'middle'})
     .text('Maths Score');
 
@@ -362,6 +363,7 @@ var yPosition = parseFloat(d3.select("#"+d.Order.replace(/ /g,'')).attr("cy")) -
 	  d3.select(this)
 		.transition()
 		.attr("stroke", "#333")
+		.style("stroke-opacity", 1)
         .attr("stroke-width", 2);
 		
 	//Get this bar's x/y values, then augment for the tooltip
