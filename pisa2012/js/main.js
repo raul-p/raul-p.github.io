@@ -196,6 +196,7 @@ d3.csv('data/pisa.csv', function(data) {
   d3.select('svg g.chart')
     .selectAll('circle')
 	.transition()
+	.style("stroke-opacity", 1)
     .attr("stroke-width", 0);
 		
   d3.select("#tooltip")
@@ -312,11 +313,17 @@ d3.csv('data/pisa.csv', function(data) {
 
   // Mouse over. Change stroke and show tooltip
     .on('mouseover', function(d) {
+	
+  		
+	if( d3.select(this).attr('stroke-width')  != 60 )
+        var stroke_width = 2;
+	else
+		var stroke_width = 60;
+		
 	  d3.select(this)
 		.transition()
 		.attr("stroke", "#333")
-		.style("stroke-opacity", 1)
-        .attr("stroke-width", 2);
+        .attr("stroke-width", stroke_width);
 		
 	//Get this bar's x/y values, then augment for the tooltip
 var xPosition = parseFloat(d3.select(this).attr("cx")) + 110;
@@ -341,9 +348,16 @@ var yPosition = parseFloat(d3.select(this).attr("cy")) - 140;
   // Mouse out
   
     .on('mouseout', function(d) {
+		
+	if(d3.select(this).attr('stroke-width')  != 60)
+        var stroke_width = 0;
+	else
+		var stroke_width = 60;
+		
 	  d3.select(this)
 		.transition()
-        .attr("stroke-width", 0)
+		.attr("stroke", "#999")
+        .attr("stroke-width", stroke_width)
 			
 	//Hide the tooltip
 	d3.select("#tooltip").classed("hidden", true);
