@@ -173,7 +173,7 @@ d3.csv('data/pisa.csv', function(data) {
 		
 		
 		//Get this bar's x/y values, then augment for the tooltip
-var xPosition = parseFloat(d3.select("#"+d.Order.replace(/ /g,'')).attr("cx")) + 200;
+var xPosition = parseFloat(d3.select("#"+d.Order.replace(/ /g,'')).attr("cx")) + 110;
 var yPosition = parseFloat(d3.select("#"+d.Order.replace(/ /g,'')).attr("cy")) - 140;
 		
 	d3.select("#tooltip")
@@ -312,7 +312,7 @@ var yPosition = parseFloat(d3.select("#"+d.Order.replace(/ /g,'')).attr("cy")) -
 		.attr("stroke", "#333")
         .attr("stroke-width", 2);
 	//Get this bar's x/y values, then augment for the tooltip
-var xPosition = parseFloat(d3.select(this).attr("cx")) + 200;
+var xPosition = parseFloat(d3.select(this).attr("cx")) + 110;
 var yPosition = parseFloat(d3.select(this).attr("cy")) - 140;
 		
 	d3.select("#tooltip")

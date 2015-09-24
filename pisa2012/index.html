@@ -3,7 +3,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-	    <title>PISA 2012</title>
+	    <title>PISA 2012. What makes good students?</title>
 	    <link rel="stylesheet" href="css/style.css">
 	    <link rel="stylesheet" href="css/svg.css">
 	
@@ -42,14 +42,16 @@
                 
               <div id="legend">
                     
-                </div>                      
+                </div>  
+                
+                   <div id="tooltip" class="hidden">
+                        <p><strong><span id="country">X</span></strong></p>
+                        <p><span id="y">y</span></p>
+                        <p><span id="x">x</span></p>
+    				</div>                     
 		</div>
         
-        <div id="tooltip" class="hidden">
-        <p><strong><span id="country">X</span></strong></p>
-        <p><span id="y">y</span></p>
-        <p><span id="x">x</span></p>
-        </div>
+
 
 		<script src="js/d3.v3.min.js"></script>
 		<script src="js/underscore-min.js"></script>
