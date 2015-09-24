@@ -6,7 +6,7 @@ body {
 }
 
 #wrapper {
-  width: 1200px;
+  width: 1250px;
   margin: 0 auto;
   position: relative;
 }
@@ -14,7 +14,7 @@ body {
 #chart {
   position: absolute;
   top: 30px;
-  left: 250px;
+  left: 10px;
   width: 900px;
   /*margin: 25px auto;*/
 }
@@ -22,7 +22,7 @@ body {
 #title {
   position: absolute;
   top: 0;
-  left: 30px;
+  left: 520px;
   font-size: 16px;
   letter-spacing: -2px;
   line-height: 100%;
@@ -30,28 +30,32 @@ body {
 
 #about {
   position: absolute;
-  top: 400px;
-  left: 30px;
-  width: 200px;
+  top: 285px;
+  left: 10px;
+  width: 280px;
   font-size: 12px;
 }
 
-#about .social {
-  margin-top: 5px;
+
+#menu1 {
+  position: absolute;
+  top: 90px;
+  left: 10px;
+  width: 140px;
 }
 
-#menu {
+#menu2 {
   position: absolute;
-  top: 65px;
-  left: 30px;
-  width: 300px;
+  top: 90px;
+  left: 150px;
+  width: 140px;
 }
 
 #countries {
   position: absolute;
-  top: 10px;
-  left: 1200px;
-  width: 300px;
+  top: 25px;
+  left: 1220px;
+  width: 100px;
 }
 
 
@@ -80,7 +84,8 @@ li {
 }
 
 li:hover {
-  color: #000;
+  color: #06C;
+  font-weight: bold;
 }
 
 li.preview {
@@ -97,6 +102,3 @@ li.selected {
   padding-bottom: 0px;
 }
 
-
-.twitter-share-button[style], .twitter-follow-button[style] { vertical-align: text-bottom !important; }
-.twitter-share-button {width: 76px !important;}

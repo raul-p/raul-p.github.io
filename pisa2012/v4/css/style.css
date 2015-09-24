@@ -21,8 +21,8 @@ body {
 
 #title {
   position: absolute;
-  top: 0;
-  left: 520px;
+  top: 15px;
+  left: 230px;
   font-size: 16px;
   letter-spacing: -2px;
   line-height: 100%;
@@ -30,9 +30,9 @@ body {
 
 #about {
   position: absolute;
-  top: 285px;
-  left: 10px;
-  width: 280px;
+  top: 295px;
+  left: 920px;
+  width: 300px;
   font-size: 12px;
 }
 
@@ -40,22 +40,23 @@ body {
 #menu1 {
   position: absolute;
   top: 90px;
-  left: 10px;
+  left: 920px;
   width: 140px;
 }
 
 #menu2 {
   position: absolute;
   top: 90px;
-  left: 150px;
+  left: 1070px;
   width: 140px;
 }
 
 #countries {
   position: absolute;
-  top: 25px;
+  top: 20px;
   left: 1220px;
   width: 100px;
+  visibility:hidden;
 }
 
 
