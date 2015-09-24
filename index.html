@@ -4,11 +4,12 @@ title: Raúl Peralta
 ---
 <div class="blurb">
 	<h1>Hi there</h1>
-	<p>This is Raúl Peralta's Github page</a></p>
+	<p>I'm Raúl Peralta and this it my Github page</a></p>
 </div><!-- /.blurb -->
 
 
 <ul class="posts">
+	<h2>Latest posts</a></h2>
 	{% for post in site.posts %}
 		<li><span>{{ post.date | date_to_string }}</span> » <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
 	{% endfor %}
