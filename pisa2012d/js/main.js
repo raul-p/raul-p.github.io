@@ -269,12 +269,12 @@ var yPosition = parseFloat(d3.select("#"+d.Order.replace(/ /g,'')).attr("cy")) -
   // Axis labels
   d3.select('svg g.chart')
     .append('text')
-    .attr({'id': 'xLabel', 'x': 400, 'y': 660, 'text-anchor': 'middle'})
+    .attr({'id': 'xLabel', 'x': 400, 'y': 670, 'text-anchor': 'middle'})
     .text(descriptions[xAxis]);
 
   d3.select('svg g.chart')
     .append('text')
-    .attr('transform', 'translate(-45, 390)rotate(-90)')
+    .attr('transform', 'translate(-50, 390)rotate(-90)')
     .attr({'id': 'yLabel', 'text-anchor': 'middle'})
     .text('Maths Score');
 
@@ -287,7 +287,7 @@ var yPosition = parseFloat(d3.select("#"+d.Order.replace(/ /g,'')).attr("cy")) -
 	
 	svg.append("g")
 	  .attr("class", "legendSize")
-	  .attr("transform", "translate(130, 575)")
+	  .attr("transform", "translate(130, 590)")
 	  .attr("fill", "#aaa");
 	
 	var legendSize = d3.legend.size()
@@ -317,7 +317,7 @@ var yPosition = parseFloat(d3.select("#"+d.Order.replace(/ /g,'')).attr("cy")) -
 	
 	svg.append("g")
 	  .attr("class", "legendLinear")
-	  .attr("transform", "translate(565,575)");
+	  .attr("transform", "translate(565,590)");
 	
 	var legendLinear = d3.legend.color()
 	  .shapeWidth(55)
@@ -486,7 +486,6 @@ var yPosition = parseFloat(d3.select(this).attr("cy")) - 140;
     s.call(d3.svg.axis()
       .scale(xScale)
 	  .tickSize(3, 0)
-	  .ticks(9)
       .orient("bottom"));
   }
 
