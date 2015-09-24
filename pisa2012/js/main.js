@@ -72,8 +72,8 @@ function getCorrelation(xArray, yArray) {
 d3.csv('data/pisa.csv', function(data) {
 
   var xAxis = 'Longitude', yAxis = 'Latitude';
-  var xAxisOptions = ["Longitude", "Abs Latitude", "Homework Hours", "Quiet Place to Study", "Computer at Home", "Internet at Home", "Play Chess", "Books", "Car", "Computer Programming", "Problems"];
-  var yAxisOptions = ["Maths Score", "Reading Score", "Science Score", "Latitude", "Abs Latitude"];
+  var xAxisOptions = ["Homework Hours", "Quiet Place to Study", "Computer at Home", "Internet at Home", "Play Chess", "Books", "Car", "Computer Programming", "Problems"];
+  var yAxisOptions = ["Maths Score", "Reading Score", "Science Score"];
   var descriptions = {
 	"Abs Latitude" :"Absolute latitude (non-negatives values)", 
 	"Longitude" : "Longitude",
@@ -137,6 +137,8 @@ d3.csv('data/pisa.csv', function(data) {
     })
     .on('click', function(d) {
       xAxis = d;
+	  if( yAxis == 'Latitude' )
+        yAxis = "Maths Score";
       updateChart();
       updateMenus();
     });
@@ -152,6 +154,8 @@ d3.csv('data/pisa.csv', function(data) {
      })
      .on('click', function(d) {
        yAxis = d;
+	   if( xAxis == 'Longitude' )
+	     xAxis = "Homework Hours";
        updateChart();
        updateMenus();
      });
