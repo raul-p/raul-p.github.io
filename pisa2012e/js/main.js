@@ -180,13 +180,12 @@ d3.csv('data/pisa.csv', function(data) {
   var dropDown = d3.select("#countries-list2")
   				   .append("select")
                    .attr("name", "country-list");
-				   
-	
+  
   var options = dropDown.selectAll("option")
                         .data(data)
                         .enter()
                         .append("option");
-		 		   
+		   
   options.text(function (d) { return d.Order; })
          .attr("value", function (d) { return d.Order; });
 	   
@@ -313,7 +312,7 @@ d3.csv('data/pisa.csv', function(data) {
 
 
   // Mouse over. Change stroke and show tooltip
-    .on('mouseenter', function(d) {
+    .on('mouseover', function(d) {
 	
   		
 	if( d3.select(this).attr('stroke-width')  != 60 )
@@ -325,9 +324,25 @@ d3.csv('data/pisa.csv', function(data) {
 		.transition()
 		.attr("stroke", "#333")
         .attr("stroke-width", stroke_width);
-	
-	var mouse_over_circle = true;	
+		
+	//Get this bar's x/y values, then augment for the tooltip
+var xPosition = parseFloat(d3.select(this).attr("cx")) + 110;
+var yPosition = parseFloat(d3.select(this).attr("cy")) - 140;
+		
+	d3.select("#tooltip")
+	  .style("left", xPosition + "px")
+	  .style("top", yPosition + "px")
+	  .select("#country")
+	  .text(d.Country + " (" + d.Area + ")");
+	d3.select("#tooltip #y")
+	  .text(labels[yAxis] + ": " + d[yAxis]);
+	d3.select("#tooltip #x")
+	  .text(labels[xAxis] + ": " + d[xAxis]);
+   
 
+  //Show the tooltip
+  d3.select("#tooltip")
+    .classed("hidden", false);	
     })
 
   // Mouse out
@@ -346,9 +361,6 @@ d3.csv('data/pisa.csv', function(data) {
 			
 	//Hide the tooltip
 	d3.select("#tooltip").classed("hidden", true);
-	
-	mouse_over_circle = false;
-	
 	})
 	
 
@@ -373,36 +385,6 @@ d3.csv('data/pisa.csv', function(data) {
 		.attr("stroke-width", 60);
 	}
 		
-	})
-	
-	
-  // Print the tooltip in pointer position
-  
-	.on('mousemove', function(d) {	
-			
-	//Get the mouse x/y, then augment for the tooltip
-	
-	var coordinates = [0, 0];
-	coordinates = d3.mouse(this);
-	var xPosition = coordinates[0] + 100;
-	var yPosition = coordinates[1] - 150;
-
-		
-	d3.select("#tooltip")
-	  .style("left", xPosition + "px")
-	  .style("top", yPosition + "px")
-	  .select("#country")
-	  .text(d.Country + " (" + d.Area + ")");
-	d3.select("#tooltip #y")
-	  .text(labels[yAxis] + ": " + d[yAxis]);
-	d3.select("#tooltip #x")
-	  .text(labels[xAxis] + ": " + d[xAxis]);
-   
-
-  //Show the tooltip
-  d3.select("#tooltip")
-    .classed("hidden", false);	
-	
 	});
 	
 	
