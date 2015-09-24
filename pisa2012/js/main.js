@@ -138,7 +138,7 @@ d3.csv('data/pisa.csv', function(data) {
 
   svg.append('g')
     .classed('chart', true)
-    .attr('transform', 'translate(80, -140)');
+    .attr('transform', 'translate(80, -160)');
 
   // Build axis menus
   d3.select('#x-axis-menu')
@@ -278,37 +278,8 @@ var yPosition = parseFloat(d3.select("#"+d.Order.replace(/ /g,'')).attr("cy")) -
     .attr({'id': 'yLabel', 'text-anchor': 'middle'})
     .text('Maths Score');
 
-
-	// Legend 1
-
-	var linear = d3.scale.category10()
-	  .domain(["AMERICA", "ASIA", "EUROPE", "OCEANIA", "AF & ME"])
 	
-	var svg = d3.select("svg");
-	
-	svg.append("g")
-	  .attr("class", "legendLinear")
-	  .attr("transform", "translate(565,620)");
-	
-	var legendLinear = d3.legend.color()
-	  .shapeWidth(55)
-	  .orient('horizontal')
-	  .shape("path", d3.svg.symbol().type("circle").size(800)())
-	  .shapePadding(30)
-	  .labelOffset(35)
-	  .scale(linear);
-	
-	svg.select(".legendLinear")
-	  .call(legendLinear);
-  
-  d3.select('svg g.chart')
-    .append('text')
-    .attr('transform', 'translate(180, 710)')
-    .attr({'text-anchor': 'middle', 'font-weight': 'bold'})
-    .text('Country Population');
-	
-	
-  // Legend 2
+  // Legend 1
   
 	var linearSize = d3.scale.linear().domain([0.5,  300]).range([1.6, 39]);
 	
@@ -316,14 +287,14 @@ var yPosition = parseFloat(d3.select("#"+d.Order.replace(/ /g,'')).attr("cy")) -
 	
 	svg.append("g")
 	  .attr("class", "legendSize")
-	  .attr("transform", "translate(130, 620)")
+	  .attr("transform", "translate(130, 590)")
 	  .attr("fill", "#aaa");
 	
 	var legendSize = d3.legend.size()
 	  .scale(linearSize)
 	  .shape('circle')
 	  .shapePadding(7)
-	  .labelOffset(20)
+	  .labelOffset(12)
 	  .orient('horizontal')
 	  .labels(["0.5M", "75M", "150M", "225M", "300M"]);
 	
@@ -332,11 +303,39 @@ var yPosition = parseFloat(d3.select("#"+d.Order.replace(/ /g,'')).attr("cy")) -
          
   d3.select('svg g.chart')
     .append('text')
-    .attr('transform', 'translate(610, 710)')
+    .attr('transform', 'translate(180, 690)')
     .attr({'text-anchor': 'middle', 'font-weight': 'bold'})
-    .text('Country Area');		 
+    .text('Country Population');		 
   
-   
+  
+  // Legend 2
+
+	var linear = d3.scale.category10()
+	  .domain(["AMERICA", "ASIA", "EUROPE", "OCEANIA", "AF & ME"])
+	
+	var svg = d3.select("svg");
+	
+	svg.append("g")
+	  .attr("class", "legendLinear")
+	  .attr("transform", "translate(565,590)");
+	
+	var legendLinear = d3.legend.color()
+	  .shapeWidth(55)
+	  .orient('horizontal')
+	  .shape("path", d3.svg.symbol().type("circle").size(800)())
+	  .shapePadding(30)
+	  .labelOffset(27)
+	  .scale(linear);
+	
+	svg.select(".legendLinear")
+	  .call(legendLinear);
+  
+  d3.select('svg g.chart')
+    .append('text')
+    .attr('transform', 'translate(605, 690)')
+    .attr({'text-anchor': 'middle', 'font-weight': 'bold'})
+    .text('Continent');
+	   
   
   // Render circles
   updateScales();
@@ -480,7 +479,7 @@ var yPosition = parseFloat(d3.select(this).attr("cy")) - 140;
 
     yScale = d3.scale.linear()
                     .domain([bounds[yAxis].min, bounds[yAxis].max])
-                    .range([600, 200]);    
+                    .range([600, 220]);    
   }
 
   function makeXAxis(s) {
