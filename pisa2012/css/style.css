@@ -7,14 +7,14 @@ body {
 }
 
 #wrapper {
-  width: 1024px;
+  width: 1000px;
   margin: 0 auto;
   position: relative;
 }
 
 #chart {
   position: absolute;
-  top: 120px;
+  top: 110px;
   left: 130px;
   width: 850px;
   /*margin: 25px auto;*/

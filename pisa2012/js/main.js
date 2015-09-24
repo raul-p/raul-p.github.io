@@ -132,7 +132,7 @@ d3.csv('data/pisa.csv', function(data) {
   // Create svg and stuff
   var svg = d3.select("#chart")
     .append("svg")
-    .attr("width", 900)
+    .attr("width", 890)
     .attr("height", 700);
   var xScale, yScale;
 
@@ -475,7 +475,7 @@ var yPosition = parseFloat(d3.select(this).attr("cy")) - 140;
   function updateScales() {
     xScale = d3.scale.linear()
                     .domain([bounds[xAxis].min, bounds[xAxis].max])
-                    .range([20, 780]);
+                    .range([20, 760]);
 
     yScale = d3.scale.linear()
                     .domain([bounds[yAxis].min, bounds[yAxis].max])
