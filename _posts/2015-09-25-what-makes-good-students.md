@@ -100,15 +100,19 @@ After version 1:
 ### Person 2
  
  After version 1:
+ 
  >I like it, but I find to hard to locate my country in the plot. Could you add a countries list?
  
  After version 4:
+ 
  >Now I can't find my country again. I think this is very important for the plot to be useful. 
  
-  After version 5:
- >There is a problem with the country selection. When I select my country and then place the mouse over it to see the actual x and y values I loose the selection and I have to select another country and then select mine again. 
+ After version 5:
+ 
+> There is a problem with the country selection. When I select my country and then place the mouse over it to see the actual x and y values I loose the selection and I have to select another country and then select mine again. 
 
 After final version:
+
 > The visualization is presented with high aesthetic sense. Many aspects are included and compared: countries, scores, features, size of the countries, mean value of score and percentage of students in different countries. 
 >
 > The chart shows the effect of some features (homework hour, quiet place to study...) on math score, science score and reading score of students in several countries. 
@@ -120,9 +124,11 @@ After final version:
 ### Person 3
 
 After version 2:
+
 >I don't understand very well what is the plot about. What is PISA?
 
 After version 3:
+
 >Ok, now I understand but I can't see it very well on my 15 inch Macbook. Elements don't fit on the screen and I need to scroll.
 
 After version 5:
