@@ -1,4 +1,4 @@
-  // HELPERS
+// HELPERS
 function parseData(d) {
   var keys = _.keys(d[0]);
   return _.map(d, function(d) {
@@ -69,25 +69,11 @@ function getCorrelation(xArray, yArray) {
   return {r: r, m: m, b: b};
 }
 
-
-  // Load the data
 d3.csv('data/pisa.csv', function(data) {
 
-  // Declare axis, descriptions and labels.
   var xAxis = 'Longitude', yAxis = 'Latitude';
-  
-  var xAxisOptions = ["Homework Hours",
-  					  "Quiet Place to Study",
-					  "Computer at Home", 
-					  "Internet at Home",
-					  "Play Chess",
-					  "Books", 
-					  "Car",
-					  "Computer Programming",
-					  "Problems"];
-					  
+  var xAxisOptions = ["Homework Hours", "Quiet Place to Study", "Computer at Home", "Internet at Home", "Play Chess", "Books", "Car", "Computer Programming", "Problems"];
   var yAxisOptions = ["Maths Score", "Reading Score", "Science Score"];
-  
   var descriptions = {
 	"Abs Latitude" :"Absolute latitude (non-negatives values)", 
 	"Longitude" : "Longitude",
@@ -124,12 +110,11 @@ d3.csv('data/pisa.csv', function(data) {
 	"Problems" : "Problems (%)"
   };
 
-  // Get keys, data and bounds from file
   var keys = _.keys(data[0]);
   var data = parseData(data);
   var bounds = getBounds(data, 1);
 
-  // Create svg and stuff
+  // SVG AND D3 STUFF
   var svg = d3.select("#chart")
     .append("svg")
     .attr("width", 900)
@@ -140,7 +125,7 @@ d3.csv('data/pisa.csv', function(data) {
     .classed('chart', true)
     .attr('transform', 'translate(80, -140)');
 
-  // Build axis menus
+  // Build menus
   d3.select('#x-axis-menu')
     .selectAll('li')
     .data(xAxisOptions)
@@ -175,87 +160,55 @@ d3.csv('data/pisa.csv', function(data) {
        updateMenus();
      });
 	 
-	 
-   // Countries dropdown  
-  var dropDown = d3.select("#countries-list2")
-  				   .append("select")
-                   .attr("name", "country-list");
-  
-  var options = dropDown.selectAll("option")
-                        .data(data)
-                        .enter()
-                        .append("option");
-		   
-  options.text(function (d) { return d.Order; })
-         .attr("value", function (d) { return d.Order; });
-	   
-  dropDown.on("change", menuChanged );
-  
-  function menuChanged(d) {
-	  
-  d3.select('svg g.chart')
-    .selectAll('circle')
-	.transition()
-    .attr("stroke-width", 0);
-		
-  d3.select("#tooltip")
-    .classed("hidden", true);
-
-    var selectedValue = d3.event.target.value; 
-	var selectedCountry =  "#"+selectedValue.replace(/ /g,'');
-
-  d3.select(selectedCountry)
-	.transition()
-	.attr("stroke", "#999")
-    .attr("stroke-width", 60)
-	.style("stroke-opacity", 0.3);	    
-}
-  
   // Countries list
 
 	
-  d3.select('#countries-list')
-    .selectAll('li')
-    .data(data)
-    .enter()
-    .append('li')
-    .text(function(d) {return d.Order;})
-    .on('mouseover', function(d) {
+	d3.select('#countries-list')
+     .selectAll('li')
+     .data(data)
+     .enter()
+     .append('li')
+     .text(function(d) {return d.Order;})
+     .on('mouseover', function(d) {
 
 		
-  d3.select("#"+d.Order.replace(/ /g,''))
-	.transition()
-	.attr("stroke", "#333")
-    .attr("stroke-width", 3);	
+	  d3.select("#"+d.Order.replace(/ /g,''))
+		.transition()
+		.attr("stroke", "#333")
+        .attr("stroke-width", 3);	
 		
 		
-  //Get this bar's x/y values, then augment for the tooltip
+		//Get this bar's x/y values, then augment for the tooltip
 var xPosition = parseFloat(d3.select("#"+d.Order.replace(/ /g,'')).attr("cx")) + 110;
 var yPosition = parseFloat(d3.select("#"+d.Order.replace(/ /g,'')).attr("cy")) - 140;
 		
-  d3.select("#tooltip")
-    .style("left", xPosition + "px")
-    .style("top", yPosition + "px")
-    .select("#country")
-    .text(d.Order + " (" + d.aOrder + ")");
+	d3.select("#tooltip")
+  .style("left", xPosition + "px")
+  .style("top", yPosition + "px")
+  .select("#country")
+  .text(d.Order + " (" + d.aOrder + ")");
   d3.select("#tooltip #y")
-    .text(labels[yAxis] + ": " + d[yAxis]);
+  .text(labels[yAxis] + ": " + d[yAxis]);
   d3.select("#tooltip #x")
-    .text(labels[xAxis] + ": " + d[xAxis]);
+  .text(labels[xAxis] + ": " + d[xAxis]);
   
   		
-  d3.select("#tooltip")
-    .classed("hidden", false);		
-    })	
-	
-	.on('mouseout', function(d) {	
-  d3.select("#"+d.Order.replace(/ /g,''))
-    .transition()
-    .attr("stroke-width", 0);
+	      d3.select("#tooltip")
+.classed("hidden", false);	
 		
-  d3.select("#tooltip")
-    .classed("hidden", true);
-	});	 
+    })	
+	.on('mouseout', function(d) {
+		
+  	  d3.select("#"+d.Order.replace(/ /g,''))
+	    .transition()
+        .attr("stroke-width", 0);
+		
+		      d3.select("#tooltip")
+.classed("hidden", true);
+	
+				    })
+
+	;	 
 	 
 	
   // Best fit line (to appear behind points)
@@ -278,6 +231,8 @@ var yPosition = parseFloat(d3.select("#"+d.Order.replace(/ /g,'')).attr("cy")) -
     .text('Maths Score');
 
 
+
+
 	// Legend 1
 
 	var linear = d3.scale.category10()
@@ -294,13 +249,12 @@ var yPosition = parseFloat(d3.select("#"+d.Order.replace(/ /g,'')).attr("cy")) -
 	  .orient('horizontal')
 	  .shape("path", d3.svg.symbol().type("circle").size(800)())
 	  .shapePadding(30)
-	  .labelOffset(35)
 	  .scale(linear);
 	
 	svg.select(".legendLinear")
 	  .call(legendLinear);
   
-  d3.select('svg g.chart')
+      d3.select('svg g.chart')
     .append('text')
     .attr('transform', 'translate(180, 710)')
     .attr({'text-anchor': 'middle', 'font-weight': 'bold'})
@@ -329,13 +283,14 @@ var yPosition = parseFloat(d3.select("#"+d.Order.replace(/ /g,'')).attr("cy")) -
 	svg.select(".legendSize")
 	  .call(legendSize);
          
-  d3.select('svg g.chart')
+      d3.select('svg g.chart')
     .append('text')
     .attr('transform', 'translate(610, 710)')
     .attr({'text-anchor': 'middle', 'font-weight': 'bold'})
     .text('Country Area');		 
   
-   
+  
+  
   
   // Render circles
   updateScales();
@@ -357,44 +312,46 @@ var yPosition = parseFloat(d3.select("#"+d.Order.replace(/ /g,'')).attr("cy")) -
     .style('cursor', 'pointer')
 
 
-  // Mouse over. Change stroke and show tooltip
     .on('mouseover', function(d) {
 	  d3.select(this)
 		.transition()
 		.attr("stroke", "#333")
         .attr("stroke-width", 2);
-		
 	//Get this bar's x/y values, then augment for the tooltip
 var xPosition = parseFloat(d3.select(this).attr("cx")) + 110;
 var yPosition = parseFloat(d3.select(this).attr("cy")) - 140;
 		
 	d3.select("#tooltip")
-	  .style("left", xPosition + "px")
-	  .style("top", yPosition + "px")
-	  .select("#country")
-	  .text(d.Country + " (" + d.Area + ")");
-	d3.select("#tooltip #y")
-	  .text(labels[yAxis] + ": " + d[yAxis]);
-	d3.select("#tooltip #x")
-	  .text(labels[xAxis] + ": " + d[xAxis]);
-   
-
-  //Show the tooltip
-  d3.select("#tooltip")
-    .classed("hidden", false);	
-    })
-
-  // Mouse out
+  .style("left", xPosition + "px")
+  .style("top", yPosition + "px")
+  .select("#country")
+  .text(d.Country + " (" + d.Area + ")");
+  d3.select("#tooltip #y")
+  .text(labels[yAxis] + ": " + d[yAxis]);
+  d3.select("#tooltip #x")
+  .text(labels[xAxis] + ": " + d[xAxis]);
   
+  
+
+//Show the tooltip
+d3.select("#tooltip")
+.classed("hidden", false);
+
+		
+    })
+	
     .on('mouseout', function(d) {
 	  d3.select(this)
 		.transition()
         .attr("stroke-width", 0)
-			
-	//Hide the tooltip
-	d3.select("#tooltip").classed("hidden", true);
-	});
+		
+//Hide the tooltip
+d3.select("#tooltip").classed("hidden", true);
+
+		    })
+   ;
 	
+
   updateChart(true);
   updateMenus();
 
@@ -410,6 +367,7 @@ var yPosition = parseFloat(d3.select(this).attr("cy")) - 140;
     .attr('id', 'yAxis')
     .attr('transform', 'translate(-10, 0)')
     .call(makeYAxis);
+
 
 
   //// RENDERING FUNCTIONS
@@ -431,6 +389,10 @@ var yPosition = parseFloat(d3.select(this).attr("cy")) - 140;
 //     return isNaN(d[xAxis]) || isNaN(d[yAxis]) ? 0 : 12;
 	   return 4*Math.sqrt(d.Population/3.14);
       });
+
+
+
+
 	
 	
     // Also update the axes
@@ -467,7 +429,8 @@ var yPosition = parseFloat(d3.select(this).attr("cy")) - 140;
       .style('opacity', 0)
       .attr({'x1': xScale(x1), 'y1': yScale(y1), 'x2': xScale(x2), 'y2': yScale(y2)})
       .transition()
-      .duration(2500)	  
+      .duration(2500)
+	  
       .style('opacity', op);
   }
 
