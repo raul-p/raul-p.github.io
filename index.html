@@ -6,3 +6,10 @@ title: Raúl Peralta
 	<h1>Hi there</h1>
 	<p>This is Raúl Peralta's Github page</a></p>
 </div><!-- /.blurb -->
+
+
+<ul class="posts">
+	{% for post in site.posts %}
+		<li><span>{{ post.date | date_to_string }}</span> » <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
+	{% endfor %}
+</ul>
