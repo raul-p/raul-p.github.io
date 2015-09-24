@@ -8,8 +8,6 @@ function parseData(d) {
         o[k] = d[k];
 	  else if( k == 'Area' )
         o[k] = d[k];
-	  else if( k == 'Order' )
-        o[k] = d[k];
       else
         o[k] = parseFloat(d[k]);
     });
@@ -71,41 +69,21 @@ function getCorrelation(xArray, yArray) {
 
 d3.csv('data/pisa.csv', function(data) {
 
-  var xAxis = 'Lon', yAxis = 'Lat';
-  var xAxisOptions = ["Homework Hours", "Quiet Place to Study", "Computer at Home", "Internet at Home", "Play Chess", "Books", "Car", "Computer Programming", "Problems"];
-  var yAxisOptions = ["Maths Score", "Reading Score", "Science Score"];
+  var xAxis = 'Reading Score', yAxis = 'Math Score';
+  var xAxisOptions = ["Math Score", "Reading Score", "Science Score", "Play Chess", "Quiet Place to Study"];
+  var yAxisOptions = ["Math Score", "Reading Score", "Science Score"];
   var descriptions = {
-	"Lon" : "Longitude",
-	"Lat" : "Latitude",
-	"Maths Score" : "Mean maths score",
-    "Reading Score" : "Mean reading score",
-	"Science Score" : "Mean science score",
-	"Homework Hours" : "Hours spent in homework per week (h)",
-    "Internet at Home" : "Has internet at home (%)",
+	"Math Score" : "Math Score",
+    "Reading Score" : "Reading Score",
+    "Energy consumption" : "Other",
+    "Science Score" : "Science Score",
+    "Work income" : "Other",
     "Play Chess": "Play chess (%)",
+    "Family" : "Fertility (children per women)",
     "Quiet Place to Study" : "Has a quiet place to study (%)",
-	"Computer at Home": "Has a computer at home that can use to study (%)",
-	"Books" : "Has more than 100 boooks at home (%)",
-	"Car" : "Family has a car (%)",
-	"Computer Programming" : "Spends time programming computers (%)", 
-	"Problems" : "Family demands or other problems prevent them from putting a lot of time into their school work (%)"
-  };
-  
-    var labels = {
-	"Lon" : "Longitude",
-	"Lat" : "Latitude",
-	"Maths Score" : "Mean maths score",
-    "Reading Score" : "Mean reading score",
-	"Science Score" : "Mean science score",
-	"Homework Hours" : "Homework Hours (h)",
-    "Internet at Home" : "Internet at home (%)",
-    "Play Chess": "Play chess (%)",
-    "Quiet Place to Study" : "Quiet place (%)",
-	"Computer at Home": "Computer (%)",
-	"Books" : "More than 100 boooks (%)",
-	"Car" : "Family has a car (%)",
-	"Computer Programming" : "Program computers (%)", 
-	"Problems" : "Problems (%)"
+    "Working hours" : "Average working hours per week per person",
+    "Cinema spending" : "Cinema spending (% of GDP)",
+    "Health spending" : "Government health spending (% of government spend)"
   };
 
   var keys = _.keys(data[0]);
@@ -115,13 +93,13 @@ d3.csv('data/pisa.csv', function(data) {
   // SVG AND D3 STUFF
   var svg = d3.select("#chart")
     .append("svg")
-    .attr("width", 900)
-    .attr("height", 700);
+    .attr("width", 1000)
+    .attr("height", 640);
   var xScale, yScale;
 
   svg.append('g')
     .classed('chart', true)
-    .attr('transform', 'translate(80, -140)');
+    .attr('transform', 'translate(80, -60)');
 
   // Build menus
   d3.select('#x-axis-menu')
@@ -138,6 +116,9 @@ d3.csv('data/pisa.csv', function(data) {
       updateChart();
       updateMenus();
     });
+	
+	
+
 
    d3.select('#y-axis-menu')
      .selectAll('li')
@@ -153,64 +134,23 @@ d3.csv('data/pisa.csv', function(data) {
        updateChart();
        updateMenus();
      });
-	 
-  // Countries list
 
-	
-	d3.select('#countries-list')
-     .selectAll('li')
-     .data(data)
-     .enter()
-     .append('li')
-     .text(function(d) {return d.Order;})
-     .on('mouseover', function(d) {
+  // Country name
+  d3.select('svg g.chart')
+    .append('text')
+    .attr({'id': 'countryLabel', 'x': 0, 'y': 170})
+    .style({'font-size': '40px', 'fill': '#bbb'});
 
-		
-	  d3.select("#"+d.Order.replace(/ /g,''))
-		.transition()
-		.attr("stroke", "#333")
-        .attr("stroke-width", 3);	
-		
-		
-		//Get this bar's x/y values, then augment for the tooltip
-var xPosition = parseFloat(d3.select("#"+d.Order.replace(/ /g,'')).attr("cx")) + 200;
-var yPosition = parseFloat(d3.select("#"+d.Order.replace(/ /g,'')).attr("cy")) - 140;
-		
-	d3.select("#tooltip")
-  .style("left", xPosition + "px")
-  .style("top", yPosition + "px")
-  .select("#country")
-  .text(d.Order + " (" + d.aOrder + ")");
-  d3.select("#tooltip #y")
-  .text(labels[yAxis] + ": " + d[yAxis]);
-  d3.select("#tooltip #x")
-  .text(labels[xAxis] + ": " + d[xAxis]);
-  
-  		
-	      d3.select("#tooltip")
-.classed("hidden", false);	
-		
-    })	
-	.on('mouseout', function(d) {
-		
-  	  d3.select("#"+d.Order.replace(/ /g,''))
-	    .transition()
-        .attr("stroke-width", 0);
-		
-		      d3.select("#tooltip")
-.classed("hidden", true);
-	
-				    })
-
-	;	 
-	 
+  // Area name
+  d3.select('svg g.chart')
+    .append('text')
+    .attr({'id': 'areaLabel', 'x': 0, 'y': 220})
+    .style({'font-size': '40px', 'fill': '#ddd'});
 	
   // Best fit line (to appear behind points)
   d3.select('svg g.chart')
     .append('line')
-    .attr('id', 'bestfit')
-	.style("stroke-dasharray", ("5, 5"))  
-	;
+    .attr('id', 'bestfit');
 
   // Axis labels
   d3.select('svg g.chart')
@@ -220,128 +160,46 @@ var yPosition = parseFloat(d3.select("#"+d.Order.replace(/ /g,'')).attr("cy")) -
 
   d3.select('svg g.chart')
     .append('text')
-    .attr('transform', 'translate(-60, 390)rotate(-90)')
+    .attr('transform', 'translate(-60, 330)rotate(-90)')
     .attr({'id': 'yLabel', 'text-anchor': 'middle'})
     .text('Maths Score');
 
-
-
-
-	// Legend 1
-
-	var linear = d3.scale.category10()
-	  .domain(["AMERICA", "ASIA", "EUROPE", "OCEANIA", "AF & ME"])
-	
-	var svg = d3.select("svg");
-	
-	svg.append("g")
-	  .attr("class", "legendLinear")
-	  .attr("transform", "translate(565,620)");
-	
-	var legendLinear = d3.legend.color()
-	  .shapeWidth(55)
-	  .orient('horizontal')
-	  .shape("path", d3.svg.symbol().type("circle").size(800)())
-	  .shapePadding(30)
-	  .scale(linear);
-	
-	svg.select(".legendLinear")
-	  .call(legendLinear);
-  
-      d3.select('svg g.chart')
-    .append('text')
-    .attr('transform', 'translate(180, 710)')
-    .attr({'text-anchor': 'middle', 'font-weight': 'bold'})
-    .text('Country Population');
-	
-	
-  // Legend 2
-  
-	var linearSize = d3.scale.linear().domain([0.5,  300]).range([1.6, 39]);
-	
-	var svg = d3.select("svg");
-	
-	svg.append("g")
-	  .attr("class", "legendSize")
-	  .attr("transform", "translate(130, 620)")
-	  .attr("fill", "#aaa");
-	
-	var legendSize = d3.legend.size()
-	  .scale(linearSize)
-	  .shape('circle')
-	  .shapePadding(7)
-	  .labelOffset(20)
-	  .orient('horizontal')
-	  .labels(["0.5M", "75M", "150M", "225M", "300M"]);
-	
-	svg.select(".legendSize")
-	  .call(legendSize);
-         
-      d3.select('svg g.chart')
-    .append('text')
-    .attr('transform', 'translate(610, 710)')
-    .attr({'text-anchor': 'middle', 'font-weight': 'bold'})
-    .text('Country Area');		 
-  
-  
-  
-  
-  // Render circles
+  // Render points
   updateScales();
-  var pointColour = d3.scale.category10();
+  var pointColour = d3.scale.category20c();
   d3.select('svg g.chart')
     .selectAll('circle')
     .data(data)
     .enter()
     .append('circle')
-	.attr("id", function (d) { return d.Country.replace(/ /g,''); })
     .attr('cx', function(d) {
       return isNaN(d[xAxis]) ? d3.select(this).attr('cx') : xScale(d[xAxis]);
     })
     .attr('cy', function(d) {
       return isNaN(d[yAxis]) ? d3.select(this).attr('cy') : yScale(d[yAxis]);
     })
-    .attr('fill', function(d, i) {return pointColour(d.aColor);})
-	.style("fill-opacity", 0.8)
+    .attr('fill', function(d, i) {return pointColour(i);})
     .style('cursor', 'pointer')
-
-
     .on('mouseover', function(d) {
-	  d3.select(this)
-		.transition()
-		.attr("stroke", "#333")
-        .attr("stroke-width", 2);
-	//Get this bar's x/y values, then augment for the tooltip
-var xPosition = parseFloat(d3.select(this).attr("cx")) + 200;
-var yPosition = parseFloat(d3.select(this).attr("cy")) - 140;
-		
-	d3.select("#tooltip")
-  .style("left", xPosition + "px")
-  .style("top", yPosition + "px")
-  .select("#country")
-  .text(d.Country + " (" + d.Area + ")");
-  d3.select("#tooltip #y")
-  .text(labels[yAxis] + ": " + d[yAxis]);
-  d3.select("#tooltip #x")
-  .text(labels[xAxis] + ": " + d[xAxis]);
-  
-  
-
-//Show the tooltip
-d3.select("#tooltip")
-.classed("hidden", false);
-
-		
+      d3.select('svg g.chart #countryLabel')
+        .text(d.Country)
+        .transition()
+        .style('opacity', 1);
+	  d3.select('svg g.chart #areaLabel')
+        .text(d.Area)
+        .transition()
+        .style('opacity', 1);	
     })
-	
     .on('mouseout', function(d) {
-	  d3.select(this)
-		.transition()
-        .attr("stroke-width", 0)
-		
-//Hide the tooltip
-d3.select("#tooltip").classed("hidden", true);
+      d3.select('svg g.chart #countryLabel')
+        .transition()
+        .duration(1000)
+        .style('opacity', 0);
 
+      d3.select('svg g.chart #areaLabel')
+        .transition()
+        .duration(1200)
+        .style('opacity', 0);
 		    })
    ;
 	
@@ -371,8 +229,8 @@ d3.select("#tooltip").classed("hidden", true);
     d3.select('svg g.chart')
       .selectAll('circle')
       .transition()
-      .duration(1000)
-      .ease('cubic-out')
+      .duration(500)
+      .ease('quad-out')
       .attr('cx', function(d) {
         return isNaN(d[xAxis]) ? d3.select(this).attr('cx') : xScale(d[xAxis]);
       })
@@ -380,8 +238,9 @@ d3.select("#tooltip").classed("hidden", true);
         return isNaN(d[yAxis]) ? d3.select(this).attr('cy') : yScale(d[yAxis]);
       })
       .attr('r', function(d) {
-//     return isNaN(d[xAxis]) || isNaN(d[yAxis]) ? 0 : 12;
-	   return 4*Math.sqrt(d.Population/3.14);
+        return isNaN(d[xAxis]) || isNaN(d[yAxis]) ? 0 : 12;
+//      return isNaN(d[xAxis]) || isNaN(d[yAxis]) ? 0 : 12;
+//      return isNaN(d[xAxis]) || isNaN(d[yAxis]) ? d3.select(this).attr('Energy consumption') : 30 - yScale(d[yAxis])/25;
       });
 
 
@@ -412,20 +271,12 @@ d3.select("#tooltip").classed("hidden", true);
     var x2 = xScale.domain()[1], y2 = c.m * x2 + c.b;
 
     // Fade in
-	
-	 if( xAxis == 'Lon' )
-        var op = 0;
-	  else
-	    var op = 1;
-	  
-	  
     d3.select('#bestfit')
       .style('opacity', 0)
       .attr({'x1': xScale(x1), 'y1': yScale(y1), 'x2': xScale(x2), 'y2': yScale(y2)})
       .transition()
       .duration(2500)
-	  
-      .style('opacity', op);
+      .style('opacity', 1);
   }
 
   function updateScales() {
@@ -435,21 +286,18 @@ d3.select("#tooltip").classed("hidden", true);
 
     yScale = d3.scale.linear()
                     .domain([bounds[yAxis].min, bounds[yAxis].max])
-                    .range([600, 200]);    
+                    .range([600, 100]);    
   }
 
   function makeXAxis(s) {
     s.call(d3.svg.axis()
       .scale(xScale)
-	  .tickSize(3, 0)
       .orient("bottom"));
   }
 
   function makeYAxis(s) {
     s.call(d3.svg.axis()
       .scale(yScale)
-	  .tickSize(3, 0)
-	  .ticks(5)
       .orient("left"));
   }
 
