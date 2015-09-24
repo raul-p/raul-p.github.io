@@ -91,7 +91,7 @@ After version 1:
 >
 >Modify the vertical axis. Use multiples of 25 or 50. I think it will be better understood. 
 
-##### Subject 2
+##### Person 2
  
  After version 1:
  >I like it, but I find to hard to locate my country in the plot. Could you add a countries list?
@@ -111,7 +111,7 @@ After final version:
 >
 > The data values are included clear and effective, the correlation between variables is well depicted.
 
-##### Subject 3
+##### Person 3
 
 After version 2:
 >I don't understand very well what is the plot about. What is PISA?
