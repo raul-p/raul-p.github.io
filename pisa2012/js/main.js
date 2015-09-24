@@ -132,7 +132,7 @@ d3.csv('data/pisa.csv', function(data) {
   // Create svg and stuff
   var svg = d3.select("#chart")
     .append("svg")
-    .attr("width", 890)
+    .attr("width", 880)
     .attr("height", 700);
   var xScale, yScale;
 
@@ -210,55 +210,8 @@ d3.csv('data/pisa.csv', function(data) {
     .attr("stroke-width", 60)
 	.style("stroke-opacity", 0.3);	    
 }
-  
-  // Countries list
 
-	
-  d3.select('#countries-list')
-    .selectAll('li')
-    .data(data)
-    .enter()
-    .append('li')
-    .text(function(d) {return d.Order;})
-    .on('mouseover', function(d) {
 
-		
-  d3.select("#"+d.Order.replace(/ /g,''))
-	.transition()
-	.attr("stroke", "#333")
-	.style("stroke-opacity", 1)	  
-    .attr("stroke-width", 3);	
-		
-		
-  //Get this bar's x/y values, then augment for the tooltip
-var xPosition = parseFloat(d3.select("#"+d.Order.replace(/ /g,'')).attr("cx")) + 110;
-var yPosition = parseFloat(d3.select("#"+d.Order.replace(/ /g,'')).attr("cy")) - 140;
-		
-  d3.select("#tooltip")
-    .style("left", xPosition + "px")
-    .style("top", yPosition + "px")
-    .select("#country")
-    .text(d.Order + " (" + d.aOrder + ")");
-  d3.select("#tooltip #y")
-    .text(labels[yAxis] + ": " + d[yAxis]);
-  d3.select("#tooltip #x")
-    .text(labels[xAxis] + ": " + d[xAxis]);
-  
-  		
-  d3.select("#tooltip")
-    .classed("hidden", false);		
-    })	
-	
-	.on('mouseout', function(d) {	
-  d3.select("#"+d.Order.replace(/ /g,''))
-    .transition()
-    .attr("stroke-width", 0);
-		
-  d3.select("#tooltip")
-    .classed("hidden", true);
-	});	 
-	 
-	
   // Best fit line (to appear behind points)
   d3.select('svg g.chart')
     .append('line')
@@ -317,7 +270,7 @@ var yPosition = parseFloat(d3.select("#"+d.Order.replace(/ /g,'')).attr("cy")) -
 	
 	svg.append("g")
 	  .attr("class", "legendLinear")
-	  .attr("transform", "translate(565,575)");
+	  .attr("transform", "translate(545,575)");
 	
 	var legendLinear = d3.legend.color()
 	  .shapeWidth(55)
@@ -332,7 +285,7 @@ var yPosition = parseFloat(d3.select("#"+d.Order.replace(/ /g,'')).attr("cy")) -
   
   d3.select('svg g.chart')
     .append('text')
-    .attr('transform', 'translate(605, 690)')
+    .attr('transform', 'translate(580, 690)')
     .attr({'text-anchor': 'middle', 'font-weight': 'bold'})
     .text('Continent');
 	   
@@ -475,7 +428,7 @@ var yPosition = parseFloat(d3.select(this).attr("cy")) - 140;
   function updateScales() {
     xScale = d3.scale.linear()
                     .domain([bounds[xAxis].min, bounds[xAxis].max])
-                    .range([20, 760]);
+                    .range([20, 740]);
 
     yScale = d3.scale.linear()
                     .domain([bounds[yAxis].min, bounds[yAxis].max])
