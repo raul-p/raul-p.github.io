@@ -71,12 +71,12 @@ function getCorrelation(xArray, yArray) {
 
 d3.csv('data/pisa.csv', function(data) {
 
-  var xAxis = 'Lon', yAxis = 'Lat';
-  var xAxisOptions = ["Homework Hours", "Quiet Place to Study", "Computer at Home", "Internet at Home", "Play Chess", "Books", "Car", "Computer Programming", "Problems"];
-  var yAxisOptions = ["Maths Score", "Reading Score", "Science Score"];
+  var xAxis = 'Longitude', yAxis = 'Latitude';
+  var xAxisOptions = ["Longitude", "Latitude", "Homework Hours", "Quiet Place to Study", "Computer at Home", "Internet at Home", "Play Chess", "Books", "Car", "Computer Programming", "Problems"];
+  var yAxisOptions = ["Maths Score", "Reading Score", "Science Score", "Latitude"];
   var descriptions = {
-	"Lon" : "Longitude",
-	"Lat" : "Latitude",
+	"Longitude" : "Longitude",
+	"Latitude" : "Latitude",
 	"Maths Score" : "Mean maths score",
     "Reading Score" : "Mean reading score",
 	"Science Score" : "Mean science score",
@@ -92,8 +92,8 @@ d3.csv('data/pisa.csv', function(data) {
   };
   
     var labels = {
-	"Lon" : "Longitude",
-	"Lat" : "Latitude",
+	"Longitude" : "Longitude",
+	"Latitude" : "Latitude",
 	"Maths Score" : "Mean maths score",
     "Reading Score" : "Mean reading score",
 	"Science Score" : "Mean science score",
