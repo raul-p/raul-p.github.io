@@ -91,7 +91,7 @@ After version 1:
 >
 >Modify the vertical axis. Use multiples of 25 or 50. I think it will be better understood. 
 
-##### Person 2
+##### Subject 2
  
  After version 1:
  >I like it, but I find to hard to locate my country in the plot. Could you add a countries list?
@@ -111,7 +111,7 @@ After final version:
 >
 > The data values are included clear and effective, the correlation between variables is well depicted.
 
-##### Person 3
+##### Subject 3
 
 After version 2:
 >I don't understand very well what is the plot about. What is PISA?
@@ -162,6 +162,7 @@ http://bl.ocks.org/aaizemberg/78bd3dade9593896a59d
 D3: show data on mouseover of circle
 http://stackoverflow.com/questions/10805184/d3-show-data-on-mouseover-of-circle
 
+Github pages
 https://pages.github.com
 
 The Facebook Offering: How It Compares
