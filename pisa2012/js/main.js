@@ -366,15 +366,13 @@ var yPosition = parseFloat(d3.select(this).attr("cy")) - 140;
 
     .on('click', function(d) {
 		
-		
-	if(d3.select(this).attr('stroke-width')  == 60)
-
+	if(d3.select(this).attr('stroke-width')  == 60) {
 	  d3.select(this)
 		.transition()
 		.style("stroke-opacity", 1)
 		.attr("stroke-width", 0);
-		
-	else
+	
+	} else {
 	  d3.select('svg g.chart')
 		.selectAll('circle')
 		.transition()
@@ -385,8 +383,10 @@ var yPosition = parseFloat(d3.select(this).attr("cy")) - 140;
 		.transition()
 		.style("stroke-opacity", 0.3)
 		.attr("stroke-width", 60);
+	}
 		
 	});
+	
 	
 	
   updateChart(true);
