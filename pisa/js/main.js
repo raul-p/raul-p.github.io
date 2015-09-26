@@ -159,12 +159,12 @@ d3.csv('data/pisa.csv', function(data) {
    // Explanations for the navigation menu
   var explanationText = [
   "PISA is a survey of students' skills and knowledge as they approach the end of compulsory education. It assessed the competencies of 15-year-olds in reading, mathematics and science in 65 countries and economies.",
-  "The results in maths, reading and science are higly correlated. For example, this plot shows the correlation betweens maths and reading scores. Countries with good reading scores also have good maths scores.",
-  "One of the variables that shows a clearer correlation with the results in the survey is having a quiet place to study.", 
+  "The results in maths, reading and science are highly correlated. For example, this plot shows the correlation between maths and reading scores. Countries with good reading scores also have good maths scores.",
+  "One of the variables that show a clearer correlation with the results in the survey is having a quiet place to study.", 
   "Having internet at home also seems to be very correlated with all results in the test. Vietnam is an exception, as it has very good results with a very low internet penetration.",
   "Having a large number of books is also correlated with good results in the test. ",
   "However, it is surprising to see how factors like playing chess show a negative correlation with results.", 
-  "This interactive graph allows you to observe the conections between mean PISA scores per country and some variables. Select variables to compare them and see correlations. Select or click any country to follow it.",
+  "This interactive graph allows you to observe the connections between mean PISA scores per country and some variables. Select variables to compare them and see correlations. Select or click any country to follow it.",
    ];
    
 
@@ -630,11 +630,11 @@ d3.csv('data/pisa.csv', function(data) {
   // Update the scales
   function updateScales() {
     xScale = d3.scale.linear()
-                    .domain([bounds[xAxis].min-10, bounds[xAxis].max+10])
+                    .domain([bounds[xAxis].min-2, bounds[xAxis].max+2])
                     .range([10, 750]);
 
     yScale = d3.scale.linear()
-                    .domain([bounds[yAxis].min-10, bounds[yAxis].max+10])
+                    .domain([bounds[yAxis].min-5, bounds[yAxis].max+5])
                     .range([610, 220]);    
   }
 
